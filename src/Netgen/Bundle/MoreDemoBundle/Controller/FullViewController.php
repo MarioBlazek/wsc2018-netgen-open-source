@@ -9,6 +9,7 @@ use Netgen\TagsBundle\API\Repository\Values\Tags\Tag;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
+use Symfony\Component\HttpFoundation\Request;
 
 class FullViewController extends Controller
 {
@@ -54,8 +55,45 @@ class FullViewController extends Controller
         return $view;
     }
 
-    public function viewArticle(/* Typehint proper argument */)
+    public function viewArticle(ContentView $view, Request $request)
     {
-        /* Implement method */
+        $content = $view->getSiteContent();
+
+        if (!$content->getField('tags')->isEmpty()) {
+
+            $tags = $content->getFieldValue('tags');
+
+            $tagsIds = array_map(
+                function(Tag $tag) {
+                    return $tag->id;
+                },
+                $tags->tags
+            );
+
+            $criteria = [
+                new Criterion\Visibility(Criterion\Visibility::VISIBLE),
+                new TagId($tagsIds),
+            ];
+
+            $query = new LocationQuery();
+            $query->limit = 100;
+            $query->filter = new Criterion\LogicalAnd($criteria);
+            $query->sortClauses = [
+                new SortClause\DatePublished(LocationQuery::SORT_DESC),
+            ];
+
+            $pager = $this->getFindPager(
+                $query,
+                $request->query->get('page', 1),
+                3
+            );
+
+            $view->addParameters([
+                'pager' => $pager,
+            ]);
+        }
+
+
+        return $view;
     }
 }
