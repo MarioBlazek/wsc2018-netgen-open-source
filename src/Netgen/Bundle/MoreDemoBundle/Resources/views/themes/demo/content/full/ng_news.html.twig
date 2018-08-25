@@ -2,36 +2,40 @@
 
 {% import '@ezdesign/parts/content_fields.html.twig' as content_fields %}
 
+{# content \eZ\Publish\API\Repository\Values\Content\Content #}
+{% set content = content.innerContent %}
+{# location \eZ\Publish\API\Repository\Values\Content\Location #}
+{% set location = location.innerLocation %}
 {% set show_path = false %}
 
-{% if not content.fields.line_intro.empty %}
-    {% set meta_data = {'description': content.fields.line_intro.value.xml.saveXML()|striptags|trim|truncate(152)} %}
-{% elseif not content.fields.full_intro.empty %}
-    {% set meta_data = {'description': content.fields.full_intro.value.xml.saveXML()|striptags|trim|truncate(152)} %}
+{% if not ez_is_field_empty(content, 'line_intro') %}
+    {% set meta_data = {'description': ez_field_value(content, 'line_intro').xml.saveXML()|striptags|trim|truncate(152)} %}
+{% elseif not ez_is_field_empty(content, 'full_intro') %}
+    {% set meta_data = {'description': ez_field_value(content, 'full_intro').xml.saveXML()|striptags|trim|truncate(152)} %}
 {% endif %}
 
-{% set poster_image = content_fields.background_poster(content) %}
+{#{% set poster_image = content_fields.background_poster(content) %}#}
 
 {% block content %}
     <article class="view-type view-type-{{ view_type }} ng-article vf1">
         {% block article_header %}
             <header class="full-page-header full-article-header">
                 <div class="container">
-                    {% if not content.fields.sponsored_content_disclosure.empty %}
+                    {% if not ez_is_field_empty(content, 'sponsored_content_disclosure') %}
                         <div class="full-page-sponsored-tag">
-                            <span>{{ content.fields.sponsored_content_disclosure.value.text }}</span>
+                            <span>{{ ez_field_value(content, 'sponsored_content_disclosure').text }}</span>
                         </div>
-                    {% elseif not content.fields.main_topic.empty %}
+                    {% elseif not ez_is_field_empty(content, 'main_topic') %}
                         <div class="full-page-main-tag">
-                            <a href="{{ ngmore_topic_path(content.fields.main_topic.value.tags[0]) }}">{{ content.fields.main_topic.value.tags[0].keyword }}</a>
+                            <a href="{{ ngmore_topic_path(ez_field_value(content, 'main_topic').tags[0]) }}">{{ ez_field_value(content, 'main_topic').tags[0].keyword }}</a>
                         </div>
                     {% endif %}
-                    <h1 class="full-page-title">{{ ng_render_field(content.fields.title) }}</h1>
+                    <h1 class="full-page-title">{{ ez_render_field(content, 'title') }}</h1>
                     <div class="full-page-info">
-                        {% if not content.fields.authors.empty %}
+                        {% if not ez_is_field_empty(content, 'authors') %}
                             By
-                            {% for author_location_id in content.fields.authors.value.destinationLocationIds %}
-                                <a href="{{ path('ez_urlalias', {locationId: author_location_id}) }}" class="article-author">{{ ngmore_location_name(author_location_id) }}</a>
+                            {% for author_content_id in ez_field_value(content, 'authors').destinationLocationIds %}
+                                <a href="{{ path('ez_urlalias', {contentId: author_content_id}) }}" class="article-author">{{ demo_content_name(author_content_id) }}</a>
                             {% endfor %} –
                         {% endif %}
                         <time>{{ content.contentInfo.publishedDate.date|date('F jS, Y') }}</time>
@@ -42,7 +46,7 @@
 
         <div class="container">
             {% block image %}
-                {% if not content.fields.image.empty or not content.fields.related_multimedia.empty %}
+                {% if not ez_is_field_empty(content, 'image') or not ez_is_field_empty(content, 'related_multimedia') %}
                     <div class="full-article-image">
                         {{ render(
                             controller(
@@ -62,19 +66,19 @@
 
                 {% block body %}
                     <div class="full-article-body">
-                        {% if not content.fields.full_intro.empty %}
+                        {% if not ez_is_field_empty(content, 'full_intro') %}
                             <div class="article-intro">
-                                {{ ng_render_field(content.fields.full_intro) }}
+                                {{ ez_render_field(content, 'full_intro') }}
                             </div>
                         {% endif %}
 
-                        {% if not content.fields.body.empty %}
-                            {{ ng_render_field(content.fields.body) }}
+                        {% if not ez_is_field_empty(content, 'body') %}
+                            {{ ez_render_field(content, 'body') }}
                         {% endif %}
 
-                        {% if not content.fields.tags.empty %}
+                        {% if not ez_is_field_empty(content, 'tags') %}
                             <div class="full-article-tags">
-                                {% for tag in content.fields.tags.value.tags %}
+                                {% for tag in ez_field_value(content, 'tags').tags %}
                                     <a href="{{ path(tag) }}">{{ tag.keyword }}</a>
                                 {% endfor %}
                             </div>
