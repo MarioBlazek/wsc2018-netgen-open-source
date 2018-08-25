@@ -16,14 +16,14 @@
             <header class="full-page-header full-article-header">
                 <div class="container">
                     <div class="full-page-sponsored-tag">
-                        <span>{{ demo_parent_location_name(location.innerLocation) }}</span>
+                        <span>{{ location.parent.content.name }}</span>
                     </div>
                     <h1 class="full-page-title">{{ ng_render_field(content.fields.title) }}</h1>
                     <div class="full-page-info">
-                        {% if authors is defined and authors is not empty %}
+                        {% if not content.fields.authors.empty %}
                             By
-                            {% for author in authors %}
-                                <a href="{{ path('ez_urlalias', {contentId: author.id}) }}" class="article-author">{{ ez_content_name(author) }}</a>
+                            {% for author in content.getFieldRelations('authors') %}
+                                <a href="{{ path('ez_urlalias', {contentId: author.id}) }}" class="article-author">{{ author.name }}</a>
                             {% endfor %} –
                         {% endif %}
                         <time>{{ content.contentInfo.publishedDate.date|date('F jS, Y') }}</time>

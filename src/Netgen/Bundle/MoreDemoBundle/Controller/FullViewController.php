@@ -10,49 +10,6 @@ use eZ\Publish\Core\FieldType\RelationList\Value as RelationListValue;
 
 class FullViewController extends Controller
 {
-    public function viewArticle(ContentView $view)
-    {
-        $content = $view->getContent();
-
-        $fieldHelper = $this->get('ezpublish.field_helper');
-        $translationHelper = $this->get('ezpublish.translation_helper');
-        $contentService = $this->getRepository()->getContentService();
-        $locationService = $this->getRepository()->getLocationService();
-
-        if (!$fieldHelper->isFieldEmpty($content, 'authors')) {
-
-            $value = $translationHelper->getTranslatedField($content, 'authors');
-
-            if (!is_null($value)) {
-                $authors = [];
-                $value = $value->value;
-                /** @var  $value RelationListValue */
-                foreach ($value->destinationContentIds as $contentId) {
-
-                    try {
-
-                        $authorContent = $contentService->loadContent($contentId);
-                        $authorLocation = $locationService->loadLocation($authorContent->contentInfo->mainLocationId);
-
-                        if ($authorLocation->invisible || $authorLocation->hidden) {
-                            continue;
-                        }
-
-                        $authors[] = $authorContent;
-
-                    } catch (NotFoundException $e) {
-                        continue;
-                    }
-                }
-
-                $view->addParameters(['authors' => $authors]);
-            }
-
-        }
-
-        return $view;
-    }
-
     public function viewNews(ContentView $view)
     {
         $content = $view->getContent();
