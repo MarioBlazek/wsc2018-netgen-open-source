@@ -49,7 +49,7 @@ ezpublish:
                             Identifier\ContentType: ng_video
                     ng_recipe:
                         template: "@ezdesign/content/full/ng_recipe.html.twig"
-#                        controller: "demo.controller.full:viewRecipe"
+                        controller: "demo.controller.full:viewRecipe"
                         match:
                             Identifier\ContentType: ng_recipe
                     ng_topic:
