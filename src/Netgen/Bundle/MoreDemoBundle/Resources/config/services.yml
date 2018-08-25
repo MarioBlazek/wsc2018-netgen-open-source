@@ -11,7 +11,12 @@ services:
         class: Netgen\Bundle\MoreDemoBundle\Templating\Twig\Extension\DemoRuntime
         public: false
         arguments:
+            - "@ezpublish.api.service.location"
             - "@ezpublish.api.service.content"
             - "@ezpublish.translation_helper"
         tags:
             - { name: twig.runtime }
+
+    demo.controller.full:
+        class: Netgen\Bundle\MoreDemoBundle\Controller\FullViewController
+        parent: netgen.ezplatform_site.controller.base
