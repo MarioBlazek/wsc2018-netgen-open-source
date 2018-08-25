@@ -15,21 +15,15 @@
         {% block article_header %}
             <header class="full-page-header full-article-header">
                 <div class="container">
-                    {% if not content.fields.sponsored_content_disclosure.empty %}
-                        <div class="full-page-sponsored-tag">
-                            <span>{{ content.fields.sponsored_content_disclosure.value.text }}</span>
-                        </div>
-                    {% elseif not content.fields.main_topic.empty %}
-                        <div class="full-page-main-tag">
-                            <a href="{{ ngmore_topic_path(content.fields.main_topic.value.tags[0]) }}">{{ content.fields.main_topic.value.tags[0].keyword }}</a>
-                        </div>
-                    {% endif %}
+                    <div class="full-page-sponsored-tag">
+                        <span>{{ demo_parent_location_name(location.innerLocation) }}</span>
+                    </div>
                     <h1 class="full-page-title">{{ ng_render_field(content.fields.title) }}</h1>
                     <div class="full-page-info">
-                        {% if not content.fields.authors.empty %}
+                        {% if authors is defined and authors is not empty %}
                             By
-                            {% for author_location_id in content.fields.authors.value.destinationLocationIds %}
-                                <a href="{{ path('ez_urlalias', {locationId: author_location_id}) }}" class="article-author">{{ ngmore_location_name(author_location_id) }}</a>
+                            {% for author in authors %}
+                                <a href="{{ path('ez_urlalias', {contentId: author.id}) }}" class="article-author">{{ ez_content_name(author) }}</a>
                             {% endfor %} –
                         {% endif %}
                         <time>{{ content.contentInfo.publishedDate.date|date('F jS, Y') }}</time>

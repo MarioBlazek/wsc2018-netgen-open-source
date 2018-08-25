@@ -1,3 +1,21 @@
 parameters:
 
 services:
+    demo.controller.full:
+        class: Netgen\Bundle\MoreDemoBundle\Controller\FullViewController
+        parent: netgen.ezplatform_site.controller.base
+
+    demo.templating.extension:
+        class: Netgen\Bundle\MoreDemoBundle\Templating\Twig\DemoExtension
+        tags:
+            - { name: twig.extension }
+
+
+    demo.templating.runtime:
+        class: Netgen\Bundle\MoreDemoBundle\Templating\Twig\DemoRuntime
+        arguments:
+            - '@ezpublish.api.service.location'
+            - '@ezpublish.api.service.content'
+            - '@ezpublish.translation_helper'
+        tags:
+            - { name: twig.runtime }
