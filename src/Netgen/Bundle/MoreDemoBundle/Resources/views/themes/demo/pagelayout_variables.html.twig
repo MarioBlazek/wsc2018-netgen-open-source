@@ -12,17 +12,17 @@
     {% set show_path = true %}
 {% endif %}
 
-{#{% if path_array is not defined %}#}
-    {#{% if content is defined and location|default(null) is not empty and not location.innerLocation.isDraft %}#}
-        {#{% set path_array = ngmore_location_path(location.id) %}#}
-        {#{% if path_array is not empty %}#}
-            {#{% set main_category_location_id = path_array[1].location.id ?? path_array[0].location.id %}#}
-        {#{% endif %}#}
-    {#{% else %}#}
-        {#{% set path_array = [] %}#}
-        {#{% set main_category_location_id = 0 %}#}
-    {#{% endif %}#}
-{#{% endif %}#}
+{% if path_array is not defined %}
+    {% if content is defined and location|default(null) is not empty and not location.innerLocation.isDraft %}
+        {% set path_array = ngmore_location_path(location.id) %}
+        {% if path_array is not empty %}
+            {% set main_category_location_id = path_array[1].location.id ?? path_array[0].location.id %}
+        {% endif %}
+    {% else %}
+        {% set path_array = [] %}
+        {% set main_category_location_id = 0 %}
+    {% endif %}
+{% endif %}
 
 {# AVAILABLE TRANSLATIONS #}
 

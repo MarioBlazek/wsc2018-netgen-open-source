@@ -18,9 +18,9 @@
         {% include '@ezdesign/page_head_script.html.twig' %}
     {% endblock %}
 
-    {#{% block open_graph %}#}
-        {#{% include '@NetgenMore/parts/opengraph.html.twig' %}#}
-    {#{% endblock %}#}
+    {% block open_graph %}
+        {% include '@NetgenMore/parts/opengraph.html.twig' %}
+    {% endblock %}
 
     {% include '@NetgenMore/parts/jwplayer.html.twig' %}
 
