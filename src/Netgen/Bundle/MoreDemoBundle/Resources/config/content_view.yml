@@ -19,6 +19,7 @@ ezpublish:
                             Identifier\ContentType: ng_landing_page
                     ng_article:
                         template: "@ezdesign/content/full/ng_article.html.twig"
+                        controller: "demo.controller.full:viewArticle"
                         match:
                             Identifier\ContentType: ng_article
                     ng_news:
@@ -48,10 +49,13 @@ ezpublish:
                             Identifier\ContentType: ng_video
                     ng_recipe:
                         template: "@ezdesign/content/full/ng_recipe.html.twig"
+                        controller: "demo.controller.full:viewRecipe"
+#                       add your controller action in example three
                         match:
                             Identifier\ContentType: ng_recipe
                     ng_topic:
                         template: "@ezdesign/content/full/ng_topic.html.twig"
+#                       add your controller action in assignment three
                         match:
                             Identifier\ContentType: ng_topic
                     ng_htmlbox:
