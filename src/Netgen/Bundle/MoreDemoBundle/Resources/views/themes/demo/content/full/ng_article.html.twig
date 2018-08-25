@@ -2,6 +2,7 @@
 
 {% import '@ezdesign/parts/content_fields.html.twig' as content_fields %}
 
+{# ignore this #}
 {# content \eZ\Publish\API\Repository\Values\Content\Content #}
 {% set content = content.innerContent %}
 {# location \eZ\Publish\API\Repository\Values\Content\Location #}
@@ -45,10 +46,10 @@
         <div class="container">
             {% block image %}
 
-                {#{% set image_alias = ez_image_alias(ez_field(content, 'image'), content.versionInfo, 'i1200') %}#}
-                {#{% set image_alias = ng_image_alias(content.fields.name, 'i1200') %}#}
-
                 {% if not ez_is_field_empty(content, 'image') or not ez_is_field_empty(content, 'related_multimedia') %}
+
+                    {% set image_alias = ez_image_alias(ez_field(content, 'image'), content.versionInfo, 'i1200') %}
+
                     <div class="full-article-image">
                         {{ render(
                             controller(

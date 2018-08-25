@@ -2,6 +2,7 @@
 
 {% import '@ezdesign/parts/content_fields.html.twig' as content_fields %}
 
+{# ignore this #}
 {# content \eZ\Publish\API\Repository\Values\Content\Content #}
 {% set content = content.innerContent %}
 {# location \eZ\Publish\API\Repository\Values\Content\Location #}
@@ -13,8 +14,6 @@
 {% elseif not ez_is_field_empty(content, 'full_intro') %}
     {% set meta_data = {'description': ez_field_value(content, 'full_intro').xml.saveXML()|striptags|trim|truncate(152)} %}
 {% endif %}
-
-{#{% set poster_image = content_fields.background_poster(content) %}#}
 
 {% block content %}
     <article class="view-type view-type-{{ view_type }} ng-article vf1">
@@ -34,7 +33,7 @@
                     <div class="full-page-info">
                         {% if not ez_is_field_empty(content, 'authors') %}
                             By
-                            {% for author_content_id in ez_field_value(content, 'authors').destinationLocationIds %}
+                            {% for author_content_id in ez_field_value(content, 'authors').destinationContentIds %}
                                 <a href="{{ path('ez_urlalias', {contentId: author_content_id}) }}" class="article-author">{{ demo_content_name(author_content_id) }}</a>
                             {% endfor %} –
                         {% endif %}
