@@ -1,22 +1,3 @@
 parameters:
 
 services:
-    demo.templating.twig.extension.demo:
-        class: Netgen\Bundle\MoreDemoBundle\Templating\Twig\Extension\DemoExtension
-        public: false
-        tags:
-            - { name: twig.extension }
-
-    demo.templating.twig.runtime.demo:
-        class: Netgen\Bundle\MoreDemoBundle\Templating\Twig\Extension\DemoRuntime
-        public: false
-        arguments:
-            - "@ezpublish.api.service.location"
-            - "@ezpublish.api.service.content"
-            - "@ezpublish.translation_helper"
-        tags:
-            - { name: twig.runtime }
-
-    demo.controller.full:
-        class: Netgen\Bundle\MoreDemoBundle\Controller\FullViewController
-        parent: netgen.ezplatform_site.controller.base

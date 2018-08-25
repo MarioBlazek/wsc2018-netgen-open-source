@@ -23,7 +23,6 @@ ezpublish:
                             Identifier\ContentType: ng_article
                     ng_news:
                         template: "@ezdesign/content/full/ng_news.html.twig"
-                        controller: "demo.controller.full:viewNews"
                         match:
                             Identifier\ContentType: ng_news
                     ng_blog_post:
