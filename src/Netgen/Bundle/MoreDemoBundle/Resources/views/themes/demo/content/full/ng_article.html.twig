@@ -77,32 +77,29 @@
                         {% endif %}
                     </div>
 
-                    {% if results is defined and results is not empty %}
-
+                    {# This code should render results from example three #}
+                    {% if pager is defined and pager is not empty %}
                         <h3 class="title">Check this</h3>
                         <div class="category-children">
-                        <div class="row">
-                        {% for result in results %}
-
-                            <div class="col-md-4 col-sm-6">
-                            {{ render(
-                                controller(
-                                    'ng_content:viewAction', {
-                                    'content': result.content,
-                                    'location': result,
-                                    'viewType': 'standard',
-                                }
-                                )
-                            ) }}
+                            <div class="row">
+                                {% for item in pager %}
+                                    <div class="col-md-4 col-sm-6">
+                                        {{ render(
+                                            controller(
+                                                'ng_content:viewAction', {
+                                                'content': item.content,
+                                                'location': item,
+                                                'viewType': 'standard',
+                                            }
+                                            )
+                                        ) }}
+                                    </div>
+                                {% endfor %}
                             </div>
-
-                        {% endfor %}
-                        </div>
                         </div>
 
-
-                        {% if results.haveToPaginate() %}
-                            {{ pagerfanta(results, 'ngmore') }}
+                        {% if pager.haveToPaginate() %}
+                            {{ pagerfanta(pager, 'ngmore') }}
                         {% endif %}
                     {% endif %}
                 {% endblock %}

@@ -3,4 +3,4 @@ parameters:
 services:
     demo.controller.full:
         class: Netgen\Bundle\MoreDemoBundle\Controller\FullViewController
-        parent: netgen.ezplatform_site.controller.base
+        # parent: set proper parent controller service definition

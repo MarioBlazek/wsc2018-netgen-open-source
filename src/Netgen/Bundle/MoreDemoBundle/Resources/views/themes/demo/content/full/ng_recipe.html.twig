@@ -108,11 +108,9 @@
 
 
                         {% if recipies is defined and recipies is not empty %}
-
                             <h2 class="section-title section-title-centered title">Latest recipies</h2>
 
                             {% for recipie in recipies %}
-
                                 {{ render(
                                     controller(
                                         'ng_content:viewAction', {
@@ -122,11 +120,8 @@
                                         }
                                     )
                                 ) }}
-
                             {% endfor %}
-
                         {% endif %}
-
                     </div>
                 {% endblock %}
 
