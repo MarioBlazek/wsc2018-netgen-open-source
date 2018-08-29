@@ -28,7 +28,6 @@ ezpublish:
                             Identifier\ContentType: ng_landing_page
                     ng_article:
                         template: "@ezdesign/content/full/ng_article.html.twig"
-                        controller: "demo.controller.full:viewArticle"
                         match:
                             Identifier\ContentType: ng_article
                         queries:

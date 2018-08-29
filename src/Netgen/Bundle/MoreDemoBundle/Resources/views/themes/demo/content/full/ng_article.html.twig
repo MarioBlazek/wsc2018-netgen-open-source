@@ -79,7 +79,7 @@
 
                     {# This code should render results from example three #}
                     {% set tag_relations = ng_query( 'tag_relations' ) %}
-                    {% if tag_relations is defined and pager is not empty %}
+                    {% if tag_relations is defined and tag_relations is not empty %}
                         <h3 class="title">Check this out! (Mixed content)</h3>
                         <div class="category-children">
                             <div class="row">
@@ -106,7 +106,7 @@
 
 
                     {% set tag_relations_videos = ng_query( 'tag_relations_videos' ) %}
-                    {% if tag_relations_videos is defined and pager is not empty %}
+                    {% if tag_relations_videos is defined and tag_relations_videos is not empty %}
                         <h3 class="title">Check this out! (Videos)</h3>
                         <div class="category-children">
                             <div class="row">
