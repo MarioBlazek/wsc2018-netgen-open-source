@@ -36,6 +36,8 @@ ezpublish:
                                 named_query: tag_relations
                                 parameters:
                                     content_type: ng_video
+                                    publication_date:
+                                        gte: '-2 days'
                     ng_news:
                         template: "@ezdesign/content/full/ng_news.html.twig"
                         match:
