@@ -1,6 +1,15 @@
 ezpublish:
     system:
         frontend_group:
+            ng_named_query:
+                tag_relations:
+                    query_type: SiteAPI:Content/Relations/TagFields
+                    max_per_page: 3
+                    page: '@=queryParam("page", 1)'
+                    parameters:
+                        relation_field: tags
+                        content_type: ng_article
+                        sort: 'published desc'
             ngcontent_view:
                 full:
                     ng_frontpage:
@@ -23,22 +32,11 @@ ezpublish:
                         match:
                             Identifier\ContentType: ng_article
                         queries:
-                            tag_relations:
-                                query_type: SiteAPI:Content/Relations/TagFields
-                                max_per_page: 3
-                                page: '@=queryParam("page", 1)'
-                                parameters:
-                                    relation_field: tags
-                                    content_type: ng_article
-                                    sort: 'published desc'
+                            tag_relations: tag_relations
                             tag_relations_videos:
-                                query_type: SiteAPI:Content/Relations/TagFields
-                                max_per_page: 3
-                                page: '@=queryParam("page_videos", 1)'
+                                named_query: tag_relations
                                 parameters:
-                                    relation_field: tags
                                     content_type: ng_video
-                                    sort: 'published desc'
                     ng_news:
                         template: "@ezdesign/content/full/ng_news.html.twig"
                         match:
