@@ -18,9 +18,15 @@ ezpublish:
                             Identifier\ContentType: ng_frontpage
                     ng_category:
                         template: "@ezdesign/content/full/ng_category.html.twig"
-                        controller: "ngmore.controller.full_view:viewNgCategory"
                         match:
                             Identifier\ContentType: ng_category
+                        queries:
+                            children:
+                                query_type: SiteAPI:Location/Children
+                                max_per_page: 12
+                                page: '@=queryParam("page", 1)'
+                                parameters:
+                                    sort: name asc
                     ng_landing_page:
                         template: "@ezdesign/content/full/ng_landing_page.html.twig"
                         controller: "ngmore.controller.full_view:viewNgLandingPage"
