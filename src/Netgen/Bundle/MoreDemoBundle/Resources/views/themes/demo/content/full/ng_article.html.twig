@@ -78,17 +78,18 @@
                     </div>
 
                     {# This code should render results from example three #}
-                    {% if pager is defined and pager is not empty %}
-                        <h3 class="title">Check this</h3>
+                    {% set tag_relations = ng_query( 'tag_relations' ) %}
+                    {% if tag_relations is defined and pager is not empty %}
+                        <h3 class="title">Check this out! (Mixed content)</h3>
                         <div class="category-children">
                             <div class="row">
-                                {% for item in pager %}
+                                {% for item in tag_relations %}
                                     <div class="col-md-4 col-sm-6">
                                         {{ render(
                                             controller(
                                                 'ng_content:viewAction', {
-                                                'content': item.content,
-                                                'location': item,
+                                                'content': item,
+                                                'location': item.mainLocation,
                                                 'viewType': 'standard',
                                             }
                                             )
@@ -98,8 +99,35 @@
                             </div>
                         </div>
 
-                        {% if pager.haveToPaginate() %}
-                            {{ pagerfanta(pager, 'ngmore') }}
+                        {% if tag_relations.haveToPaginate() %}
+                            {{ pagerfanta(tag_relations, 'ngmore') }}
+                        {% endif %}
+                    {% endif %}
+
+
+                    {% set tag_relations_videos = ng_query( 'tag_relations_videos' ) %}
+                    {% if tag_relations_videos is defined and pager is not empty %}
+                        <h3 class="title">Check this out! (Videos)</h3>
+                        <div class="category-children">
+                            <div class="row">
+                                {% for item in tag_relations_videos %}
+                                    <div class="col-md-4 col-sm-6">
+                                        {{ render(
+                                            controller(
+                                                'ng_content:viewAction', {
+                                                'content': item,
+                                                'location': item.mainLocation,
+                                                'viewType': 'standard',
+                                            }
+                                            )
+                                        ) }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        {% if tag_relations_videos.haveToPaginate() %}
+                            {{ pagerfanta(tag_relations_videos, 'ngmore', {'pageParameter': '[page_videos]'}) }}
                         {% endif %}
                     {% endif %}
                 {% endblock %}

@@ -22,6 +22,23 @@ ezpublish:
                         controller: "demo.controller.full:viewArticle"
                         match:
                             Identifier\ContentType: ng_article
+                        queries:
+                            tag_relations:
+                                query_type: SiteAPI:Content/Relations/TagFields
+                                max_per_page: 3
+                                page: '@=queryParam("page", 1)'
+                                parameters:
+                                    relation_field: tags
+                                    content_type: ng_article
+                                    sort: 'published desc'
+                            tag_relations_videos:
+                                query_type: SiteAPI:Content/Relations/TagFields
+                                max_per_page: 3
+                                page: '@=queryParam("page_videos", 1)'
+                                parameters:
+                                    relation_field: tags
+                                    content_type: ng_video
+                                    sort: 'published desc'
                     ng_news:
                         template: "@ezdesign/content/full/ng_news.html.twig"
                         match:
